@@ -6,18 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   getDefaultConfig,
   RainbowKitProvider,
-  ConnectButton,
 } from "@rainbow-me/rainbowkit";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import Link from "next/link";
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
   SignedIn,
-  SignedOut,
-  UserButton,
-  SignOutButton,
 } from "@clerk/nextjs";
 import { NavBar } from "@/components/NavBar";
 

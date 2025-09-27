@@ -12,16 +12,12 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import Link from "next/link";
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
   SignedIn,
-  SignedOut,
   UserButton,
   SignOutButton,
 } from "@clerk/nextjs";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const config = getDefaultConfig({
   appName: "Crypto Checkout",

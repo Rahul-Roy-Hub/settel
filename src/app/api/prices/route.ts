@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get conversions for all supported chains (for preview)
-    const conversions: Record<string, any> = {};
+    const conversions: Record<string, { nativeAmount: number; tokenSymbol: string; price: number }> = {};
     
     // Get all unique tokens we need prices for
     const allTokensNeeded = new Set<string>();
@@ -218,12 +218,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const prices = await pythPriceService.getMultipleTokenPrices(tokens);
-    
+    // TODO: Implement bulk price fetching or remove this endpoint
     return NextResponse.json({
       success: true,
       data: {
-        prices,
+        prices: {},
         timestamp: new Date().toISOString(),
       },
     });
