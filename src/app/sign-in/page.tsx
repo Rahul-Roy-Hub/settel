@@ -45,7 +45,7 @@ export default function SignInPage() {
                 <Cpu className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent group-hover:from-blue-100 group-hover:to-white transition-all duration-300">
-                Cryptonite
+                Settle
               </span>
             </Link>
             <Link href="/">
@@ -83,7 +83,7 @@ export default function SignInPage() {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-white">Why choose Cryptonite?</h3>
+              <h3 className="text-2xl font-bold text-white">Why choose Settle?</h3>
               <div className="space-y-4">
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-start space-x-4 group">
@@ -152,7 +152,7 @@ export default function SignInPage() {
                 <Cpu className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                Cryptonite
+                Settle
               </span>
             </div>
             <div className="text-sm text-gray-500">

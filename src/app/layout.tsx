@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cryptonite - Accept Crypto Payments Like Never Before",
+  title: "Settle - Accept Crypto Payments Like Never Before",
   description: "The most powerful, secure, and developer-friendly crypto payment platform. Built for merchants who demand enterprise-grade reliability and seamless integration.",
 };
 
