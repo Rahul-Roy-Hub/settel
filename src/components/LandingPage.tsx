@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { NavBar } from "@/components/NavBar";
 import { 
   ArrowRightIcon, 
   LightningBoltIcon, 
@@ -12,9 +13,7 @@ import {
   GlobeIcon, 
   ClockIcon, 
   EnvelopeClosedIcon, 
-  MobileIcon,
-  HamburgerMenuIcon,
-  Cross2Icon
+  MobileIcon
 } from "@radix-ui/react-icons";
 
 const features = [
@@ -51,9 +50,7 @@ const features = [
 ];
 
 export default function LandingPage() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Handle scroll effect
   useEffect(() => {
@@ -64,155 +61,10 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle click outside mobile menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    if (isMobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMobileMenuOpen]);
-
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
-      <nav className={`border-b border-blue-900/30 backdrop-blur-md sticky top-0 z-50 shadow-lg transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-black/98 shadow-blue-900/20' 
-          : 'bg-black/95 shadow-blue-900/10'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <div className="flex items-center space-x-3 group cursor-pointer">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-105">
-                  <LightningBoltIcon className="w-6 h-6 text-white" />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm"></div>
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent group-hover:from-blue-100 group-hover:to-white transition-all duration-300">
-                Cryptonite
-              </span>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
-              <a 
-                href="#features" 
-                className="relative px-4 py-2 text-gray-300 hover:text-white hover:bg-blue-600/10 rounded-lg transition-all duration-300 hover:scale-105 font-medium group"
-              >
-                Features
-                <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-blue-500 group-hover:w-3/4 transition-all duration-300 rounded-full"></span>
-              </a>
-              <a 
-                href="#how-it-works" 
-                className="relative px-4 py-2 text-gray-300 hover:text-white hover:bg-blue-600/10 rounded-lg transition-all duration-300 hover:scale-105 font-medium group"
-              >
-                How it Works
-                <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-blue-500 group-hover:w-3/4 transition-all duration-300 rounded-full"></span>
-              </a>
-              <a 
-                href="#pricing" 
-                className="relative px-4 py-2 text-gray-300 hover:text-white hover:bg-blue-600/10 rounded-lg transition-all duration-300 hover:scale-105 font-medium group"
-              >
-                Pricing
-                <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-blue-500 group-hover:w-3/4 transition-all duration-300 rounded-full"></span>
-              </a>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="hidden md:flex items-center space-x-3">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="border-blue-600/50 text-blue-400 hover:bg-blue-600/10 hover:border-blue-500 hover:text-blue-300 transition-all duration-300 hover:scale-105 font-medium px-6"
-                asChild
-              >
-                <a href="/sign-in">Sign In</a>
-              </Button>
-              <Button 
-                size="sm" 
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 transition-all duration-300 hover:scale-105 font-medium px-6"
-                asChild
-              >
-                <a href="/onboard">Get Started</a>
-              </Button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="border-blue-600/50 text-blue-400 hover:bg-blue-600/10 hover:border-blue-500 hover:text-blue-300 transition-all duration-300"
-              >
-                {isMobileMenuOpen ? (
-                  <Cross2Icon className="w-4 h-4" />
-                ) : (
-                  <HamburgerMenuIcon className="w-4 h-4" />
-                )}
-              </Button>
-            </div>
-            </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div 
-              ref={mobileMenuRef}
-              className="md:hidden absolute top-full left-0 right-0 bg-black/98 backdrop-blur-md border-t border-blue-900/30 shadow-lg shadow-blue-900/20 animate-in slide-in-from-top-2 duration-300"
-            >
-              <div className="px-4 py-6 space-y-4">
-                <a 
-                  href="#features" 
-                  className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-600/10 rounded-lg transition-all duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Features
-                </a>
-                <a 
-                  href="#how-it-works" 
-                  className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-600/10 rounded-lg transition-all duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  How it Works
-                </a>
-                <a 
-                  href="#pricing" 
-                  className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-blue-600/10 rounded-lg transition-all duration-300 font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Pricing
-                </a>
-                <div className="pt-4 space-y-3">
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-blue-600/50 text-blue-400 hover:bg-blue-600/10 hover:border-blue-500 hover:text-blue-300 transition-all duration-300 font-medium"
-                    asChild
-                  >
-                    <a href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>Sign In</a>
-                  </Button>
-                  <Button 
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 transition-all duration-300 font-medium"
-                    asChild
-                  >
-                    <a href="/onboard" onClick={() => setIsMobileMenuOpen(false)}>Get Started</a>
-                  </Button>
-            </div>
-          </div>
-            </div>
-          )}
-        </div>
-      </nav>
+      <NavBar variant="landing" isScrolled={isScrolled} />
 
       {/* Hero Section */}
       <section className="relative py-24 lg:py-32 bg-gradient-to-br from-black via-gray-900 to-black">
@@ -296,7 +148,7 @@ export default function LandingPage() {
             <div className="relative bg-gray-900/80 backdrop-blur-sm border border-blue-900/30 rounded-2xl p-4 overflow-hidden">
               <Image 
                 src="/thumbnail-world.png" 
-                alt="Cryptonite Platform Showcase" 
+                alt="Settel Platform Showcase" 
                 width={800}
                 height={500}
                 className="w-full h-auto rounded-xl object-cover shadow-2xl group-hover:scale-105 transition-transform duration-500"
@@ -429,7 +281,7 @@ export default function LandingPage() {
       <section id="features" className="py-24 bg-black relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-balance text-white">What Sets Cryptonite Apart</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-balance text-white">What Sets Settel Apart</h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto text-pretty">
               Reimagining how crypto payments should work. Simple, secure, and human.
             </p>
@@ -458,7 +310,7 @@ export default function LandingPage() {
         <div className="absolute top-122 right-8 hidden lg:block">
           <Image 
             src="/shao-sitting.png" 
-            alt="Cryptonite Platform Features" 
+            alt="Settel Platform Features" 
             width={400}
             height={250}
             className="rounded-xl shadow-2xl opacity-80 hover:opacity-100 transition-opacity duration-300"
@@ -584,7 +436,7 @@ export default function LandingPage() {
             <div className="text-center lg:text-left space-y-8">
               <h2 className="text-3xl lg:text-4xl font-bold text-balance text-white">Ready to revolutionize your payments?</h2>
               <p className="text-xl text-gray-300 text-pretty">
-                Join the businesses already using Cryptonite to accept crypto payments effortlessly.
+                Join the businesses already using Settel to accept crypto payments effortlessly.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" asChild>
@@ -610,7 +462,7 @@ export default function LandingPage() {
               <div className="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
                 <LightningBoltIcon className="w-4 h-4 text-white" />
                 </div>
-              <span className="font-semibold text-white">Cryptonite</span>
+              <span className="font-semibold text-white">Settel</span>
               </div>
             <div className="flex items-center space-x-6 text-sm text-gray-300">
               <a href="#" className="hover:text-white transition-colors">

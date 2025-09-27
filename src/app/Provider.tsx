@@ -19,9 +19,7 @@ import {
   UserButton,
   SignOutButton,
 } from "@clerk/nextjs";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { NavBar } from "@/components/NavBar";
 
 const config = getDefaultConfig({
   appName: "Crypto Checkout",
@@ -33,8 +31,6 @@ const config = getDefaultConfig({
 const queryClient = new QueryClient();
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
-
   return (
     <ThemeProvider
       attribute="class"
@@ -47,53 +43,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           <RainbowKitProvider>
             <ClerkProvider>
               <SignedIn>
-                <header className="flex justify-between items-center p-4 h-16 border-b">
-                  <div className="text-lg font-semibold">
-                    <Link href="/">
-                      <h2>Settle</h2>
-                    </Link>
-                  </div>
-
-                  <nav className="hidden sm:flex gap-4 items-center">
-                    <ConnectButton />
-                    <Link href="/buttons">Buttons</Link>
-                    <Link href="/history">History</Link>
-                    <Link href="/settings">Settings</Link>
-                    <UserButton />
-                    <SignOutButton>
-                      <button className="bg-red-500 text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                        Sign Out
-                      </button>
-                    </SignOutButton>
-                  </nav>
-
-                  <div className="sm:hidden">
-                    <button onClick={() => setOpen(!open)}>
-                      {open ? <X size={24} /> : <Menu size={24} />}
-                    </button>
-                  </div>
-                </header>
-
-                {open && (
-                  <div className="sm:hidden flex flex-col items-start gap-4 p-4 border-b">
-                    <ConnectButton />
-                    <Link href="/buttons" onClick={() => setOpen(false)}>
-                      Buttons
-                    </Link>
-                    <Link href="/history" onClick={() => setOpen(false)}>
-                      History
-                    </Link>
-                    <Link href="/settings" onClick={() => setOpen(false)}>
-                      Settings
-                    </Link>
-                    <UserButton />
-                    <SignOutButton>
-                      <button className="bg-red-500 text-white rounded-full font-medium text-sm h-10 px-4 cursor-pointer">
-                        Sign Out
-                      </button>
-                    </SignOutButton>
-                  </div>
-                )}
+                <NavBar variant="authenticated" />
               </SignedIn>
 
               {children}
