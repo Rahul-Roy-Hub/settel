@@ -65,7 +65,7 @@ export default function ButtonsPage() {
     );
   }
 
-  const totalRevenue = buttons.reduce((sum, button) => sum + button.amountUsd, 0);
+  const totalRevenue = buttons.reduce((sum, button) => sum + (button.amountUsd || 0), 0);
   const activeButtons = buttons.length;
 
   return (

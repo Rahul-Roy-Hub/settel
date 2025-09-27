@@ -122,7 +122,8 @@ export async function updateTransactionStatus(
       merchant.email,
       transaction.from,
       transaction.amountUsd,
-      signature
+      signature,
+      transaction.chainId
     );
 
     return { success: true };

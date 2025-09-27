@@ -10,8 +10,8 @@ export async function getUserButtons(userId: string) {
     });
     if (!buttons || buttons.length === 0) {
       return {
-        success: false,
-        error: "No buttons found",
+        success: true,
+        buttons: [],
       };
     }
     return {

@@ -1,11 +1,12 @@
 import nodemailer from "nodemailer";
+import { getBlockExplorerUrl, getExplorerName } from "@/utils/blockExplorer";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true,
   auth: {
-    user: "cryptonite.devv@gmail.com",
+    user: "Settledevv@gmail.com",
     pass: process.env.MAIL_PASS || "http://localhost:3000",
   },
 });
@@ -19,7 +20,7 @@ export const sendTransactionMail = async (
     const payUrl = `${process.env.API_URL}/pay/${transactionId}`;
 
     const mailOptions = {
-      from: `"Cryptonite" <cryptonite.devv@gmail.com>`,
+      from: `"Cryptonite" <Settledevv@gmail.com>`,
       to,
       subject: `Payment Request - Cryptonite`,
       html: `
@@ -81,13 +82,15 @@ export const sendMerchantMail = async (
   merchantMail: string,
   from: string,
   amount: number,
-  signature: string
+  signature: string,
+  chainId: string
 ) => {
   try {
-    const etherscanUrl = `https://etherscan.io/tx/${signature}`;
+    const blockExplorerUrl = getBlockExplorerUrl(chainId, signature) || `https://etherscan.io/tx/${signature}`;
+    const explorerName = getExplorerName(chainId);
 
     const mailOptions = {
-      from: `"Cryptonite" <cryptonite.devv@gmail.com>`,
+      from: `"Cryptonite" <Settledevv@gmail.com>`,
       to: merchantMail,
       subject: `💰 Payment Received - Cryptonite`,
       html: `
@@ -126,7 +129,7 @@ export const sendMerchantMail = async (
             </p>
           </div>
 
-          <a href="${etherscanUrl}" 
+          <a href="${blockExplorerUrl}" 
             style="
               display: inline-block;
               text-decoration: none;
@@ -137,7 +140,7 @@ export const sendMerchantMail = async (
               border-radius: 8px;
               font-weight: 500;
             ">
-            🔍 Verify on Etherscan
+            🔍 Verify on ${explorerName}
           </a>
 
           <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;" />
@@ -157,13 +160,13 @@ export const sendMerchantMail = async (
             <tr>
               <td style="padding: 8px; border: 1px solid #eee;">Transaction</td>
               <td style="padding: 8px; border: 1px solid #eee;">
-                <a href="${etherscanUrl}" style="color:#0070f3; text-decoration:none;">View on Etherscan</a>
+                <a href="${blockExplorerUrl}" style="color:#0070f3; text-decoration:none;">View on ${explorerName}</a>
               </td>
             </tr>
           </table>
 
           <p style="font-size: 12px; color: #888; margin-top: 16px;">
-            This is an automated payment receipt from Cryptonite.  
+            This is an automated payment receipt from Settle  
             For any issues, please contact our support team.
           </p>
         </div>

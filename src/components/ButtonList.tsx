@@ -73,7 +73,7 @@ export function ButtonList({ buttons, loading }: ButtonListProps) {
                 <p className="text-muted-foreground text-sm line-clamp-2">{btn.description}</p>
               </div>
               <Badge variant="secondary">
-                ${btn.amountUsd.toFixed(2)}
+                ${btn.amountUsd ? btn.amountUsd.toFixed(2) : '0.00'}
               </Badge>
             </div>
           </CardHeader>
@@ -81,7 +81,7 @@ export function ButtonList({ buttons, loading }: ButtonListProps) {
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Amount:</span>
-                <span className="text-foreground font-medium">${btn.amountUsd.toFixed(2)} USD</span>
+                <span className="text-foreground font-medium">${btn.amountUsd ? btn.amountUsd.toFixed(2) : '0.00'} USD</span>
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Chains:</span>

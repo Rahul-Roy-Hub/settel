@@ -4,7 +4,7 @@ import Profile from "@/models/profileModel";
 import Transaction from "@/models/transactionModel";
 import { sendTransactionMail } from "@/lib/mail";
 export async function POST(req: NextRequest) {
-  const { buttonId, cryptoId, amountUsd } = await req.json();
+  const { buttonId, cryptoId, amountUsd, chainId } = await req.json();
   try {
     const button = await Button.findById(buttonId);
     if (!button) {
@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
       from: user[0]?.email,
       to: button.merchantAddress,
       signature: "",
+      chainId: chainId || button.chainId[0], // Use provided chainId or first chain from button
       buttonId: button._id,
       status: "pending",
       amountUsd: amountUsd,

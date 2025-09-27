@@ -3,6 +3,7 @@ const TransactionSchema = new mongoose.Schema({
   from: { type: String, required: true },
   to: { type: String, required: true },
   signature: { type: String },
+  chainId: { type: String, required: true }, // Add chain ID to track which blockchain
   time: { type: Date, default: Date.now },
   status: {
     type: String,
