@@ -144,8 +144,25 @@ export default function Page() {
     "137": "0x0000000000000000000000000000000000001010", // MATIC token on Polygon
   };
 
-  // Import block explorer utilities
-  const { getBlockExplorerUrl, getChainName } = require("@/utils/blockExplorer");
+  // Block explorer URLs for different chains
+  const BLOCK_EXPLORERS: Record<string, string> = {
+    "1": "https://etherscan.io/tx/", // Ethereum Mainnet
+    "10": "https://optimistic.etherscan.io/tx/", // Optimism
+    "42161": "https://arbiscan.io/tx/", // Arbitrum One
+    "137": "https://polygonscan.com/tx/", // Polygon
+    "8453": "https://basescan.org/tx/", // Base
+    "43114": "https://snowtrace.io/tx/", // Avalanche
+  };
+
+  // Chain names for display
+  const CHAIN_NAMES: Record<string, string> = {
+    "1": "Ethereum Mainnet",
+    "10": "Optimism",
+    "42161": "Arbitrum One",
+    "137": "Polygon",
+    "8453": "Base",
+    "43114": "Avalanche",
+  };
 
   const fetchTransaction = async () => {
     setLoading(true);
@@ -1048,13 +1065,13 @@ export default function Page() {
 
                       <div className="pt-2">
                         <a
-                          href={getBlockExplorerUrl(
-                            successfulTxChainId ||
-                              transaction?.buttonId?.chainId?.[0] ||
-                              transaction?.chainId ||
-                              "",
-                            successfulTxHash || transaction?.signature || ""
-                          ) || "#"}
+                          href={`${
+                            BLOCK_EXPLORERS[
+                              successfulTxChainId ||
+                                transaction?.buttonId?.chainId?.[0] ||
+                                ""
+                            ]
+                          }${successfulTxHash || transaction?.signature}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"

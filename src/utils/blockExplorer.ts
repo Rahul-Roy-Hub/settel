@@ -5,12 +5,7 @@ export const BLOCK_EXPLORERS: Record<string, string> = {
   "42161": "https://arbiscan.io/tx/", // Arbitrum One
   "137": "https://polygonscan.com/tx/", // Polygon
   "8453": "https://basescan.org/tx/", // Base
-  "43114": "https://snowtrace.io/tx/", // Avalanche
-  "56": "https://bscscan.com/tx/", // BSC
-  "250": "https://ftmscan.com/tx/", // Fantom
-  "25": "https://cronoscan.com/tx/", // Cronos
-  "1284": "https://moonscan.io/tx/", // Moonbeam
-  "1285": "https://moonriver.moonscan.io/tx/", // Moonriver
+  "43114": "https://snowtrace.io/tx/" // Avalanche
 };
 
 // Chain names for display
@@ -20,12 +15,7 @@ export const CHAIN_NAMES: Record<string, string> = {
   "42161": "Arbitrum One",
   "137": "Polygon",
   "8453": "Base",
-  "43114": "Avalanche",
-  "56": "BSC",
-  "250": "Fantom",
-  "25": "Cronos",
-  "1284": "Moonbeam",
-  "1285": "Moonriver",
+  "43114": "Avalanche"
 };
 
 /**
@@ -63,13 +53,7 @@ export function getExplorerName(chainId: string): string {
     "10": "Optimistic Etherscan",
     "42161": "Arbiscan",
     "137": "Polygonscan",
-    "8453": "Basescan",
-    "43114": "Snowtrace",
-    "56": "BSCScan",
-    "250": "FTMScan",
-    "25": "Cronoscan",
-    "1284": "Moonscan",
-    "1285": "Moonriver Moonscan",
+    "8453": "Basescan"
   };
   return explorerNames[chainId] || "Block Explorer";
 }
