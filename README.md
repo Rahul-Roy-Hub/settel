@@ -1,5 +1,7 @@
 # Settel – A New Standard for Payments
 
+https://drive.google.com/file/d/1HR54-MdNI9EnOyF9I0wbjuaiZlc5w52Y/view?usp=sharing
+
 Every once in a while, a product comes along that changes everything. It doesn't just improve what came before. It redefines what's possible.
 
 Today, that product is Settel.
